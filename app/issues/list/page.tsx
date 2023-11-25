@@ -53,10 +53,10 @@ export const metadata: Metadata = {
   description: 'View all project issues'
 }
 
+// export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
 export default IssuesPage;
 
 
-// export const revalidate = 0;
-export const dynamic = "force-dynamic";
 
