@@ -57,3 +57,6 @@ export const metadata: Metadata = {
 
 
 export default IssuesPage;
+
+export const dynamic = ‘force-dynamic’;
+
