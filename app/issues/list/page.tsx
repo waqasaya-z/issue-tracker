@@ -47,8 +47,6 @@ const IssuesPage = async ({ searchParams }: { searchParams: IssueQuery }) => {
   );
 };
 
-export const dynamic = "force-dynamic";
-// export const revalidate = 0;
 
 export const metadata: Metadata = {
   title: 'Issue Tracker - Issue List',
@@ -58,5 +56,7 @@ export const metadata: Metadata = {
 
 export default IssuesPage;
 
-export const dynamic = ‘force-dynamic’;
+
+// export const revalidate = 0;
+export const dynamic = "force-dynamic";
 
