@@ -8,6 +8,8 @@ import { getServerSession } from "next-auth";
 import authOptions from "@/app/api/auth/authOptions";
 import AssigneeSelect from "./AssigneeSelect";
 import { cache } from "react";
+import StatusSelect from "./StatusSelect";
+import AdminFeedback from "./Feedback";
 
 interface Props {
   params: {
@@ -25,28 +27,50 @@ const fetchUser = cache((issueId: number) =>
 
 const IssueDetailPage = async ({ params: { id } }: Props) => {
   const session = await getServerSession(authOptions);
-
   if (typeof id === "number") notFound();
 
   const issue = await fetchUser(parseInt(id));
 
   if (!issue) notFound();
 
+  if (session)
+    return (
+      <>
+      <h1 className='font-semibold text-2xl'> Issue Details </h1>
+        <Grid columns={{ initial: "1", sm: "5" }} gap="5">
+          <Box className="md:col-span-4">
+            <IssueDetail issue={issue} />
+          </Box>
+          <Box>
+            <Flex direction="column" gap="4">
+              <EditIssueButton issueId={issue.id} />
+              <DeleteIssueButton issueId={issue.id} />
+            </Flex>
+          </Box>
+        </Grid>
+      </>
+    );
+
   return (
-    <Grid columns={{ initial: "1", sm: "5" }} gap="5">
-      <Box className="md:col-span-4">
-        <IssueDetail issue={issue} />
-      </Box>
-      <Box>
-        {session && (
+    <>
+      <h1 className='font-semibold text-2xl'> Issue Details </h1>
+      <Grid columns={{ initial: "1", sm: "5" }} gap="5">
+        <Box className="md:col-span-4">
+          <IssueDetail issue={issue} />
+        </Box>
+        <Box>
           <Flex direction="column" gap="4">
             <AssigneeSelect issue={issue} />
-            <EditIssueButton issueId={issue.id} />
+            <StatusSelect taskId={id} issue={issue}  />
             <DeleteIssueButton issueId={issue.id} />
           </Flex>
-        )}
-      </Box>
-    </Grid>
+        </Box>
+      </Grid>
+      <div className="mt-28">
+        <h1 className="font-semibold mb-2"> Feedback </h1>
+        <AdminFeedback />
+      </div>
+    </>
   );
 };
 

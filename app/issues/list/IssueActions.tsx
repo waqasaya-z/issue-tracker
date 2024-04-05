@@ -7,7 +7,7 @@ const IssueActions = () => {
   return (
     <Flex justify="between">
       <IssueStatusFilter />
-    <Button> <Link href='/issues/new'> New Issue </Link> </Button> 
+    {/* <Button> <Link href='/issues/new'> New Issue </Link> </Button>  */}
      </Flex>
   )
 }

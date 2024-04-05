@@ -6,7 +6,7 @@ import ReactMarkDown from "react-markdown";
 const IssueDetail = ({ issue }: { issue: Issue }) => {
   return (
     <>
-      <Heading>{issue.title}</Heading>
+      <Heading className="font-medium text-xl">{issue.title}</Heading>
       <Flex gap="3" my="3">
         <StatusBadge status={issue.status} />
         <Text>{issue.createdAt.toDateString()}</Text>

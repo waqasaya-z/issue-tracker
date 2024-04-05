@@ -41,7 +41,7 @@ const AssigneeSelect = ({ issue }: { issue: Issue }) => {
           </Select.Group>
         </Select.Content>
       </Select.Root>
-      <Toaster />
+      {/* <Toaster /> */}
     </>
   );
 };

@@ -13,7 +13,14 @@ import {
   Flex,
   Text
 } from "@radix-ui/themes";
-import { Skeleton } from '@/app/components'
+import { Skeleton } from "@/app/components";
+import { useEffect, useState } from "react";
+import Dropdown from "./reusablecomponents/Dropdown";
+
+type NavLinks = {
+  label: string;
+  href: string;
+}[]
 
 const Navbar = () => {
   return (
@@ -35,11 +42,33 @@ const Navbar = () => {
 
 const NavLinks = () => {
   const currentPath = usePathname();
+  const { status, data: session } = useSession();
+  const [links, setLinks] = useState<NavLinks>([])
 
-  const links = [
-    { label: "Dashboard", href: "/" },
-    { label: "Issues", href: "/issues/list" }
-  ];
+  useEffect(() => {
+    const jsonString: any = localStorage.getItem('userData');
+    const userData = JSON.parse(jsonString);
+
+    const adminLinks = [
+      { label: "Dashboard", href: "/dashboard" },
+      { label: "Issues", href: "/issues/list" },
+      { label: "Course Requests", href: "/course/requests" },
+      { label: "Create Account", href: "/account" },
+    ];
+
+    const userLinks = [
+      { label: "Dashboard", href: "/student" },
+      { label: "Courses", href: "/course" },
+      { label: "New Issue", href: "/issues/new" },
+    ];
+
+    if (userData && userData.isAdmin) {
+      setLinks(adminLinks);
+    } else {
+      setLinks(userLinks);
+    }
+  }, []); 
+
 
   return (
     <ul className="flex space-x-6">
@@ -48,8 +77,8 @@ const NavLinks = () => {
           <Link
             href={link.href}
             className={classNames({
-              "nav-link": true, 
-              "!text-zinc-900": link.href === currentPath,
+              "nav-link": true,
+              "!text-zinc-900": link.href === currentPath
             })}
           >
             {link.label}
@@ -62,11 +91,15 @@ const NavLinks = () => {
 
 const AuthStatus = () => {
   const { status, data: session } = useSession();
+  const jsonString: any = localStorage.getItem('userData');
+  const userData = JSON.parse(jsonString);
 
   if (status === "loading") return <Skeleton width="3rem" />;
 
   if (status === "unauthenticated")
-    return <Link className="nav-link" href="/api/auth/signin"> Log In </Link>;
+    return (
+      <Dropdown userData={userData} />
+    );
 
   return (
     <Box>
