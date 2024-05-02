@@ -25,7 +25,7 @@ const HoverCardIdea = () => {
           <ul className="list-disc p-2">
             <li>
               Got a gremlin in your gears? This system is for reporting real
-              issues, so we can fix them faster than you can say "bug squasher!"
+              issues, so we can fix them faster than you can say bug squasher!
             </li>
             <li>
               Hold your horses! We ❤ feedback, but keep it clean and concise.

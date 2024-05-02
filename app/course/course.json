@@ -1,0 +1,337 @@
+{
+  "Semester I": {
+    "Credit Hours": 14,
+    "Courses": [
+      {
+        "Code": "CSC-101",
+        "Course Name": "Introduction to Information and Communication Technology (ICT)",
+        "Category": "General Education",
+        "Credit Hours": 3,
+        "Prerequisite": "-NONE-"
+      },
+      {
+        "Code": "CSC-102",
+        "Course Name": "Programming Fundamentals",
+        "Category": "Computing Core",
+        "Credit Hours": 4,
+        "Prerequisite": "-NONE-"
+      },
+      {
+        "Code": "ENG-101",
+        "Course Name": "English Composition and Comprehension",
+        "Category": "General Education",
+        "Credit Hours": 3,
+        "Prerequisite": "-NONE-"
+      },
+      {
+        "Code": "MTS-101",
+        "Course Name": "Precalculus",
+        "Category": "Maths & Science",
+        "Credit Hours": "Non - Credit",
+        "Prerequisite": "-NONE-"
+      },
+      {
+        "Code": "HUM-101",
+        "Course Name": "Islamic Studies/Ethics",
+        "Category": "General Education",
+        "Credit Hours": 2,
+        "Prerequisite": "-NONE-"
+      },
+      {
+        "Code": "HUM-102",
+        "Course Name": "Pakistan Studies",
+        "Category": "General Education",
+        "Credit Hours": 2,
+        "Prerequisite": "-NONE-"
+      }
+    ]
+  },
+  "Semester II": {
+    "Credit Hours": 16,
+    "Courses": [
+      {
+        "Code": "CSC-150",
+        "Course Name": "Object-Oriented Programming",
+        "Category": "Computing Core",
+        "Credit Hours": 4,
+        "Prerequisite": "CSC-102"
+      },
+      {
+        "Code": "MTS-150",
+        "Course Name": "Calculus and Analytic Geometry",
+        "Category": "Maths & Science",
+        "Credit Hours": 3,
+        "Prerequisite": "MTS-101"
+      },
+      {
+        "Code": "ENG-150",
+        "Course Name": "Communication and Presentation Skills",
+        "Category": "General Education",
+        "Credit Hours": 3,
+        "Prerequisite": "None"
+      },
+      {
+        "Code": "CSC-151",
+        "Course Name": "Discrete Structures",
+        "Category": "Computing Core",
+        "Credit Hours": 3,
+        "Prerequisite": "-NONE-"
+      },
+      {
+        "Code": "PHY-150",
+        "Course Name": "Applied Physics",
+        "Category": "Maths & Science",
+        "Credit Hours": 3,
+        "Prerequisite": "-NONE-"
+      }
+    ]
+  },
+  "Semester III": {
+    "Credit Hours": 17,
+    "Courses": [
+      {
+        "Code": "CSC-201",
+        "Course Name": "Data Structures",
+        "Category": "Computing Core",
+        "Credit Hours": 4,
+        "Prerequisite": "CSC-102"
+      },
+      {
+        "Code": "ESE-201",
+        "Course Name": "Digital Logic Design",
+        "Category": "CS Core",
+        "Credit Hours": 4,
+        "Prerequisite": "-NONE-"
+      },
+      {
+        "Code": "MTS-201",
+        "Course Name": "Multivariate Calculus",
+        "Category": "CS Support",
+        "Credit Hours": 3,
+        "Prerequisite": "MTS-150"
+      },
+      {
+        "Code": "SWE-201",
+        "Course Name": "Software Engineering",
+        "Category": "Computing Core",
+        "Credit Hours": 3,
+        "Prerequisite": "-NONE-"
+      },
+      {
+        "Code": "Uni-Elective-I",
+        "Course Name": "Uni-Elective-I",
+        "Category": "Uni-Elective",
+        "Credit Hours": 3,
+        "Prerequisite": "-NONE-"
+      }
+    ]
+  },
+  "Semester IV": {
+    "Credit Hours": 18,
+    "Courses": [
+      {
+        "Code": "CSC-250",
+        "Course Name": "Computer Architecture & Assembly Language",
+        "Category": "CS Core",
+        "Credit Hours": 4,
+        "Prerequisite": "ESE-201"
+      },
+      {
+        "Code": "CSC-251",
+        "Course Name": "Database Systems",
+        "Category": "Computing Core",
+        "Credit Hours": 4,
+        "Prerequisite": "-NONE-"
+      },
+      {
+        "Code": "CSC-252",
+        "Course Name": "Operating Systems",
+        "Category": "Computing Core",
+        "Credit Hours": 4,
+        "Prerequisite": "-NONE-"
+      },
+      {
+        "Code": "MTS-250",
+        "Course Name": "Linear Algebra",
+        "Category": "Maths & Science",
+        "Credit Hours": 3,
+        "Prerequisite": "-NONE-"
+      },
+      {
+        "Code": "ENG-201",
+        "Course Name": "Technical Writing",
+        "Category": "General Education",
+        "Credit Hours": 3,
+        "Prerequisite": "-NONE-"
+      }
+    ]
+  },
+  "Semester V": {
+    "Credit Hours": 19,
+    "Courses": [
+      {
+        "Code": "CS-Elective-I",
+        "Course Name": "CS Elective - I",
+        "Category": "CS Elective",
+        "Credit Hours": 3,
+        "Prerequisite": "-None-"
+      },
+      {
+        "Code": "MTS-301",
+        "Course Name": "Differential Equations",
+        "Category": "CS Support",
+        "Credit Hours": 3,
+        "Prerequisite": "MTS-150"
+      },
+      {
+        "Code": "MTS-302",
+        "Course Name": "Probability and Statistics",
+        "Category": "Maths & Science",
+        "Credit Hours": 3,
+        "Prerequisite": "-NONE-"
+      },
+      {
+        "Code": "Uni-Elective-II",
+        "Course Name": "Uni - Elective - II",
+        "Category": "Uni - Elective",
+        "Credit Hours": 3,
+        "Prerequisite": "-NONE-"
+      },
+      {
+        "Code": "CSC-301",
+        "Course Name": "Computer Networks",
+        "Category": "Computing Core",
+        "Credit Hours": 4,
+        "Prerequisite": "-NONE-"
+      },
+      {
+        "Code": "CS-Elective-II",
+        "Course Name": "CS - Elective II",
+        "Category": "CS Elective",
+        "Credit Hours": 3,
+        "Prerequisite": "-NONE-"
+      }
+    ]
+  },
+  "Semester VI": {
+    "Credit Hours": 16,
+    "Courses": [
+      {
+        "Code": "CSC-350",
+        "Course Name": "Artificial Intelligence",
+        "Category": "CS Core",
+        "Credit Hours": 4,
+        "Prerequisite": "-NONE-"
+      },
+      {
+        "Code": "CSC-351",
+        "Course Name": "Design and Analysis of Algorithms",
+        "Category": "CS Core",
+        "Credit Hours": 3,
+        "Prerequisite": "CSC-201"
+      },
+      {
+        "Code": "CSC-353",
+        "Course Name": "Information Security",
+        "Category": "Computing Core",
+        "Credit Hours": 3,
+        "Prerequisite": "-NONE-"
+      },
+      {
+        "Code": "CSC-352",
+        "Course Name": "Theory of Automata",
+        "Category": "CS Core",
+        "Credit Hours": 3,
+        "Prerequisite": "CSC-151"
+      },
+      {
+        "Code": "CS-Elective-IV",
+        "Course Name": "CS-Elective-IV",
+        "Category": "CS Elective",
+        "Credit Hours": 3,
+        "Prerequisite": "---"
+      }
+    ]
+  },
+  "Semester VII": {
+    "Credit Hours": 15,
+    "Courses": [
+      {
+        "Code": "CSC-402",
+        "Course Name": "Compiler Construction",
+        "Category": "CS Core",
+        "Credit Hours": 3,
+        "Prerequisite": "CSC-352"
+      },
+      {
+        "Code": "CS-Elective-III",
+        "Course Name": "CS-Elective-III",
+        "Category": "CS Elective",
+        "Credit Hours": 3,
+        "Prerequisite": "---"
+      },
+      {
+        "Code": "Uni-Elective-III",
+        "Course Name": "Uni - Elective - III",
+        "Category": "Uni Elective",
+        "Credit Hours": 3,
+        "Prerequisite": "-NONE-"
+      },
+      {
+        "Code": "CSC-403",
+        "Course Name": "Graph Theory",
+        "Category": "Computing Support",
+        "Credit Hours": 3,
+        "Prerequisite": "---"
+      },
+      {
+        "Code": "FYP-401",
+        "Course Name": "Project-I",
+        "Category": "Computing Core",
+        "Credit Hours": 3,
+        "Prerequisite": "-NONE-"
+      }
+    ]
+  },
+   "Semester VIII": {
+    "Credit Hours": 15,
+    "Courses": [
+      {
+        "Code": "xxx-xxx",
+        "Course Name": "CS Elective-V",
+        "Category": "CS Elective",
+        "Credit Hours": 3,
+        "Prerequisite": "---"
+      },
+      {
+        "Code": "xxx-xxx",
+        "Course Name": "CS Elective-VI",
+        "Category": "CS Elective",
+        "Credit Hours": 3,
+        "Prerequisite": "---"
+      },
+      {
+        "Code": "xxx-xxx",
+        "Course Name": "CS-Elective-VII",
+        "Category": "CS Elective",
+        "Credit Hours": 3,
+        "Prerequisite": "--"
+      },
+      {
+        "Code": "CSC-450",
+        "Course Name": "Parallel & Distributed Computing (Cloud Computing)",
+        "Category": "CS Core",
+        "Credit Hours": 3,
+        "Prerequisite": "CSC-251, CSC-301"
+      },
+      {
+        "Code": "FYP-451",
+        "Course Name": "Project-II",
+        "Category": "Computing Core",
+        "Credit Hours": 3,
+        "Prerequisite": "FYP-401"
+      }
+    ]
+  }
+       
+}

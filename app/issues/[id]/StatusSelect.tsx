@@ -20,7 +20,7 @@ const StatusSelect = ({taskId, issue} : {taskId: string, issue: Issue}) => {
       });
      setTimeout(() => {
       router.refresh()
-     }, 2000) 
+     }, 3000) 
       
   };
 
