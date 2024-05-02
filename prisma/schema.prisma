@@ -91,3 +91,14 @@ enum Role {
   COORDINATOR
   ASSISTANT
 }
+
+model Course {
+  id           Int    @id @default(autoincrement())
+  firstName    String
+  lastName     String
+  cmsId        String @db.VarChar(255)
+  prerequisite String
+  sectionName  String @db.VarChar(255)
+  semesterName String @db.VarChar(255)
+  courseName   String @default("") @db.VarChar(255)
+}

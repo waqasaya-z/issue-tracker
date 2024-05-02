@@ -1,9 +1,13 @@
 import React from 'react'
 import CourseTable from './CourseTable'
+import prisma from '@/prisma/client';
 
-const CourseRequests = () => {
+const CourseRequests = async () => {
+
+  const courses = await prisma.course.findMany();
+
   return (
-    <div><CourseTable /></div>
+    <div><CourseTable courses={courses} /></div>
   )
 }
 
