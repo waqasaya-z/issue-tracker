@@ -10,6 +10,7 @@ import prisma from "@/prisma/client";
 import { Status } from "@prisma/client";
 import Username from "./Username";
 import HoverCardIdea from "./HoverCard";
+import Redirect from "./Redirect";
 
 const StudentDashboard = async ({
   searchParams
@@ -29,6 +30,7 @@ const StudentDashboard = async ({
     status
   };
 
+
   const page = parseInt(searchParams.page) || 1;
   const pageSize = 10;
 
@@ -41,6 +43,7 @@ const StudentDashboard = async ({
 
   return (
     <div className="flex flex-col">
+      <Redirect />
       <Username />
       <HoverCardIdea />
       <div className="flex gap-2 mt-10">

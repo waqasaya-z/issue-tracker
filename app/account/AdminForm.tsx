@@ -1,46 +1,79 @@
 "use client";
 import { schema } from "@/app/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Issue } from "@prisma/client";
+import { Admin, Issue } from "@prisma/client";
 import { Button } from "@radix-ui/themes";
 import axios from "axios";
 import "easymde/dist/easymde.min.css";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 import { z } from "zod";
+import Spinner from "@/app/components/Spinner";
 
-type IssueFormData = z.infer<typeof schema>;
 
-const AdminForm = ({ issue }: { issue?: Issue }) => {
+const RoleEnum = z.enum(["HEAD", "COORDINATOR", "ASSISTANT"]);
+
+const AdminSchema= z
+.object({
+  firstName: z
+    .string()
+    .min(3, { message: "First Name must be atleast 3 characters" }),
+  lastName: z
+    .string()
+    .min(3, { message: "Last Name must be atleast 3 characters" }),
+    insId: z.string().min(1, { message: "INS ID is required" }),
+  password: z
+    .string()
+    .min(6, { message: "Password must be atleast 6 characters" }),
+  confirmPassword: z
+    .string()
+    .min(1, { message: "Confirm Password is required" }),
+    role: RoleEnum
+})
+.refine((data) => data.password === data.confirmPassword, {
+  path: ["confirmPassword"],
+  message: "Password don't match"
+});
+
+
+type AdminFormData = z.infer<typeof AdminSchema>;
+
+const AdminForm = () => {
   const {
     register,
     control,
     handleSubmit,
-    formState: { errors }
-  } = useForm<IssueFormData>({
-    resolver: zodResolver(schema)
+    formState: { errors },
+    reset
+  } = useForm<AdminFormData>({
+    resolver: zodResolver(AdminSchema)
   });
+
   const router = useRouter();
 
   const [error, setError] = useState("");
   const [isSubmitting, setSubmitting] = useState(false);
 
-  const onSubmit = handleSubmit(async (data) => {
+  const onSubmit = async (data: AdminFormData) => {
+    console.log(data)
     try {
       setSubmitting(true);
-      if (issue) await axios.patch("/api/issues/" + issue.id, data);
-      else await axios.post("/api/issues", data);
-      router.push("/issues/list");
-      router.refresh();
+      const response = await axios.post("/api/account", data);
+      toast.success("Account created successfully")
+      reset()
+      
     } catch (error) {
       setSubmitting(false);
-      setError("An unexpected Error Occured");
+      toast.error("An unexpected Error Occured");
+    } finally {
+      setSubmitting(false);
     }
-  });
+  };
 
   return (
-    <form className="w-full max-w-lg mt-2">
+    <form className="w-full max-w-lg mt-2" onSubmit={handleSubmit(onSubmit)}>
       <div className="flex flex-wrap -mx-3 mb-6">
         <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
           <label
@@ -50,11 +83,13 @@ const AdminForm = ({ issue }: { issue?: Issue }) => {
             First Name
           </label>
           <input
+          {...register('firstName')}
             className="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
             id="grid-first-name"
             type="text"
             placeholder="Asif"
           />
+          {errors.firstName && <p className="text-xs font-semibold text-red-600">{errors.firstName.message}</p>}
         </div>
         <div className="w-full md:w-1/2 px-3">
           <label
@@ -64,11 +99,13 @@ const AdminForm = ({ issue }: { issue?: Issue }) => {
             Last Name
           </label>
           <input
+          {...register('lastName')}
             className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
             id="grid-last-name"
             type="text"
             placeholder="Khan"
           />
+          {errors.lastName && <p className="text-xs font-semibold text-red-600">{errors.lastName.message}</p>}
         </div>
       </div>
       <div className="flex flex-wrap -mx-3 mb-6">
@@ -80,11 +117,13 @@ const AdminForm = ({ issue }: { issue?: Issue }) => {
             INS-ID
           </label>
           <input
+          {...register("insId")}
             className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
             id="grid-id"
-            type="password"
+            type="text"
             placeholder="INS-123"
           />
+          {errors.insId && <p className="text-xs font-semibold text-red-600">{errors.insId.message}</p>}
         </div>
       </div>
       <div className="flex flex-wrap -mx-3 mb-6">
@@ -96,11 +135,13 @@ const AdminForm = ({ issue }: { issue?: Issue }) => {
             Password
           </label>
           <input
+          {...register("password", { required: true })}
             className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
             id="grid-password"
             type="password"
             placeholder="******************"
           />
+          {errors.password && <p className="text-xs font-semibold text-red-600">{errors.password.message}</p>}
           <p className="text-gray-600 text-xs italic">
             Make it as long and as crazy as you would like
           </p>
@@ -119,7 +160,11 @@ const AdminForm = ({ issue }: { issue?: Issue }) => {
             id="grid-cpassword"
             type="password"
             placeholder="******************"
+            {...register("confirmPassword", {
+              required: true
+            })}
           />
+          {errors.confirmPassword && <p className="text-xs font-semibold text-red-600">{errors.confirmPassword.message}</p>}
         </div>
       </div>
       <div className="flex flex-wrap -mx-3 mb-2">
@@ -134,11 +179,14 @@ const AdminForm = ({ issue }: { issue?: Issue }) => {
             <select
               className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
               id="grid-state"
+              {...register("role")}
             >
-              <option>Head</option>
-              <option>Coordinator</option>
-              <option>Assistant</option>
+              
+              <option value="HEAD">Head</option>
+              <option value="COORDINATOR">Coordinator</option>
+              <option value="ASSISTANT">Assistant</option>
             </select>
+            {errors.role && <p className="text-xs font-semibold text-red-600">{errors.role.message}</p>}
             <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
               <svg
                 className="fill-current h-4 w-4"
@@ -151,7 +199,7 @@ const AdminForm = ({ issue }: { issue?: Issue }) => {
           </div>
         </div>
       </div>
-      <Button className="mt-4 p-5"> Submit </Button>
+      <Button className="mt-4 p-5" disabled={isSubmitting}> {isSubmitting ? <> Submitting <Spinner /> </> : "Submit"} </Button>
     </form>
   );
 };

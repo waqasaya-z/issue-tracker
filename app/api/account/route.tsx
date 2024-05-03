@@ -16,17 +16,15 @@ export async function POST(request: NextRequest) {
   //   if(!validation.success)
   //     return NextResponse.json(validation.error.format(), { status: 400 })
 
-  const newCourse = await prisma.course.create({
+  const newAccount = await prisma.admin.create({
     data: {
       firstName: body.firstName,
       lastName: body.lastName,
-      cmsId: body.cmsId,
-      prerequisite: body.prerequisite,
-      sectionName: body.sectionName,
-      semesterName: body.semesterName,
-      courseName: body.courseName
+      insId: body.insId,
+      password: body.password,
+      role: body.role,
     }
   });
 
-  return NextResponse.json(newCourse, { status: 201 });
+  return NextResponse.json(newAccount, { status: 201 });
 }

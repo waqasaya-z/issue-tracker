@@ -97,7 +97,7 @@ model Course {
   firstName    String
   lastName     String
   cmsId        String @db.VarChar(255)
-  prerequisite String
+  prerequisite String @db.VarChar(255)
   sectionName  String @db.VarChar(255)
   semesterName String @db.VarChar(255)
   courseName   String @default("") @db.VarChar(255)

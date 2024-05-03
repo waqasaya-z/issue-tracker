@@ -8,6 +8,7 @@ import { useState } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import Spinner from "@/app/components/Spinner";
 
 const extraCourseSchema = z.object({
   firstName: z
@@ -50,6 +51,7 @@ interface Course {
 const CourseForm = () => {
   const [selectedSemester, setSelectedSemester] = useState("");
   const [selectedCourse, setSelectedCourse] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const [prerequisite, setPrerequisite] = useState({
     cleared: "", // Default value
@@ -75,16 +77,25 @@ const CourseForm = () => {
     register,
     handleSubmit,
     formState: { errors },
+    reset
   } = useForm<EnrollmentValidation>({
     resolver: zodResolver(extraCourseSchema),
   });
 
   const onSubmit = async (data: EnrollmentValidation) => {
     console.log(data);
-    const response = await axios.post("http://localhost:3000/api/course", data);
-    console.log(response.data)
-    toast.success("Course was submitted")
-    return response
+    try {
+      setLoading(true); // Set loading state to true when submitting
+      const response = await axios.post("http://localhost:3000/api/course", data);
+      console.log(response.data);
+      toast.success("Course was submitted");
+      reset(); // Reset the form fields after successful submission
+  } catch (error) {
+      console.error("Error submitting course:", error);
+      toast.error("Failed to submit course");
+  } finally {
+      setLoading(false); // Set loading state to false when submission completes (whether success or failure)
+  }
   };
 
   return (
@@ -163,7 +174,7 @@ const CourseForm = () => {
           </label>
 
           {/* Select Semester and Course Dropdown Starts Here */}
-          <div className="flex gap-2 uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+          <div className="flex gap-2 tracking-wide text-gray-700 text-xs font-bold mb-2">
             <select
               {...register("semesterName")}
               className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
@@ -204,11 +215,7 @@ const CourseForm = () => {
                     </option>
                   ))}
                 </select>
-                {errors.courseName && (
-                  <p className="text-xs font-semibold text-red-600">
-                    {errors.courseName.message}
-                  </p>
-                )}
+               
               </>
             )}
             {errors.semesterName && (
@@ -283,7 +290,7 @@ const CourseForm = () => {
           </p>
         </div>
       </div>
-      <Button className="mt-1 p-5"> Submit </Button>
+      <Button className="mt-1 p-5" disabled={loading}> {loading ? <> Submitting <Spinner /> </> : "Submit"} </Button>
     </form>
   );
 };

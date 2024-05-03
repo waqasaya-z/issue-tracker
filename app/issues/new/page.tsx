@@ -1,5 +1,6 @@
 import dynamic from 'next/dynamic'
 import IssueFormSkeleton from './loading'
+import Redirect from '@/app/student/Redirect'
 
 const IssueForm = dynamic(
   () => import('@/app/issues/_components/IssueForm'),
@@ -10,7 +11,10 @@ const IssueForm = dynamic(
 
 const NewIssuePage = () => {
   return (
+    <>
+    <Redirect />
     <IssueForm />
+    </>
   )
 }
 
