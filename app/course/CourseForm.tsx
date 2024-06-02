@@ -10,6 +10,8 @@ import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import Spinner from "@/app/components/Spinner";
 
+const PreReqEnum = z.enum(["YES", "NO"]);
+
 const extraCourseSchema = z.object({
   firstName: z
     .string()
@@ -30,12 +32,12 @@ const extraCourseSchema = z.object({
 
   courseName: z.string().min(1, "Coursename field is required."),
 
-  prerequisite: z.string({ invalid_type_error: "You must select one option." }),
+  prerequisite: PreReqEnum,
 
   sectionName: z
     .string()
     .min(1, "This field is required.")
-    .min(3, { message: "Should contain atleast 3 characters." }),
+    .min(3, { message: "Should contain atleast 3 characters." })
 });
 
 type EnrollmentValidation = z.infer<typeof extraCourseSchema>;
@@ -54,10 +56,10 @@ const CourseForm = () => {
   const [loading, setLoading] = useState(false);
 
   const [prerequisite, setPrerequisite] = useState({
-    cleared: "", // Default value
+    cleared: "" // Default value
   });
 
-  const router = useRouter()
+  const router = useRouter();
 
   // Function to handle radio button change
   const handleRadioChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -79,23 +81,26 @@ const CourseForm = () => {
     formState: { errors },
     reset
   } = useForm<EnrollmentValidation>({
-    resolver: zodResolver(extraCourseSchema),
+    resolver: zodResolver(extraCourseSchema)
   });
 
   const onSubmit = async (data: EnrollmentValidation) => {
     console.log(data);
     try {
       setLoading(true); // Set loading state to true when submitting
-      const response = await axios.post("http://localhost:3000/api/course", data);
+      const response = await axios.post(
+        "http://localhost:3000/api/course",
+        data
+      );
       console.log(response.data);
       toast.success("Course was submitted");
       reset(); // Reset the form fields after successful submission
-  } catch (error) {
+    } catch (error) {
       console.error("Error submitting course:", error);
       toast.error("Failed to submit course");
-  } finally {
+    } finally {
       setLoading(false); // Set loading state to false when submission completes (whether success or failure)
-  }
+    }
   };
 
   return (
@@ -211,11 +216,10 @@ const CourseForm = () => {
                     selectedSemester as keyof typeof semesters
                   ].Courses.map((course: Course) => (
                     <option key={course.Code} value={course["Course Name"]}>
-                       {course["Course Name"]}
+                      {course["Course Name"]}
                     </option>
                   ))}
                 </select>
-               
               </>
             )}
             {errors.semesterName && (
@@ -237,24 +241,28 @@ const CourseForm = () => {
               {...register("prerequisite")}
               type="radio"
               id="yes"
-              value="yes"
+              value="YES"
               className="form-radio h-5 w-5 text-indigo-600"
-              checked={prerequisite.cleared === "yes"}
+              checked={prerequisite.cleared === "YES"}
               onChange={handleRadioChange}
             />
-            <span className="block uppercase tracking-wide text-gray-700 text-xs font-semibold ml-2">Yes</span>
+            <span className="block uppercase tracking-wide text-gray-700 text-xs font-semibold ml-2">
+              Yes
+            </span>
           </label>
           <label htmlFor="no" className="inline-flex items-center">
             <input
               {...register("prerequisite")}
               type="radio"
               id="no"
-              value="no"
+              value="NO"
               className="form-radio h-5 w-5 text-indigo-600"
-              checked={prerequisite.cleared === "no"}
+              checked={prerequisite.cleared === "NO"}
               onChange={handleRadioChange}
             />
-            <span className="block uppercase tracking-wide text-gray-700 text-xs font-semibold ml-2">No</span>
+            <span className="block uppercase tracking-wide text-gray-700 text-xs font-semibold ml-2">
+              No
+            </span>
           </label>
           {errors.prerequisite && (
             <p className="text-xs font-semibold text-red-600">
@@ -290,7 +298,17 @@ const CourseForm = () => {
           </p>
         </div>
       </div>
-      <Button className="mt-1 p-5" disabled={loading}> {loading ? <> Submitting <Spinner /> </> : "Submit"} </Button>
+      <Button className="mt-1 p-5" disabled={loading}>
+        {" "}
+        {loading ? (
+          <>
+            {" "}
+            Submitting <Spinner />{" "}
+          </>
+        ) : (
+          "Submit"
+        )}{" "}
+      </Button>
     </form>
   );
 };

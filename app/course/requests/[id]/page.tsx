@@ -3,6 +3,7 @@ import { cache } from "react";
 import { notFound } from "next/navigation";
 import { Box, Flex, Grid, Card } from "@radix-ui/themes";
 import DeleteCourseButton from "./DeleteCourseButton";
+import CourseStatus from "./CourseStatus";
 
 interface Props {
   params: {
@@ -47,6 +48,7 @@ const CourseDetailPage = async ({ params: { id } }: Props) => {
         </Box>
         <Box>
           <Flex direction="column" gap="4">
+            <CourseStatus courseId={id} course={course} />
             <DeleteCourseButton courseId={course.id} />
           </Flex>
         </Box>

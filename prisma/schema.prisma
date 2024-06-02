@@ -93,12 +93,24 @@ enum Role {
 }
 
 model Course {
-  id           Int    @id @default(autoincrement())
+  id           Int          @id @default(autoincrement())
   firstName    String
   lastName     String
-  cmsId        String @db.VarChar(255)
-  prerequisite String @db.VarChar(255)
-  sectionName  String @db.VarChar(255)
-  semesterName String @db.VarChar(255)
-  courseName   String @default("") @db.VarChar(255)
+  cmsId        String       @db.VarChar(255)
+  prerequisite PREREQ       @default(NO)
+  sectionName  String       @db.VarChar(255)
+  semesterName String       @db.VarChar(255)
+  courseName   String       @default("") @db.VarChar(255)
+  status       CourseStatus @default(UNASSIGNED)
+}
+
+enum PREREQ {
+  YES
+  NO
+}
+
+enum CourseStatus {
+  ACCEPT
+  REJECT
+  UNASSIGNED
 }
